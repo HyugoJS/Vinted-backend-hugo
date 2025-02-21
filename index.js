@@ -24,6 +24,10 @@ const offerRoute = require("./Routes/offers");
 app.use(userRoute);
 app.use(offerRoute);
 
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome on my vinted server" });
+});
+
 app.all("*", (req, res) => {
   // route en GET dont le chemin est /hello
   res.status(404).json("Not found");
