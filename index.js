@@ -27,6 +27,9 @@ app.use(offerRoute);
 app.get("/", (req, res) => {
   res.json({ message: "Welcome on my vinted server" });
 });
+app.get("/keziah", (req, res) => {
+  res.json({ message: "SALUT MON POTE JE SUIS EN RP MANSOUR" });
+});
 
 app.all("*", (req, res) => {
   // route en GET dont le chemin est /hello
