@@ -1,10 +1,13 @@
+require("dotenv").config();
 const express = require("express"); // import du package express
 const app = express(); // création du serveur
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
 const cloudinary = require("cloudinary").v2;
+const cors = require("cors");
 
 app.use(express.json()); // param body
+app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI); // connecter a notre serveur
 
