@@ -59,7 +59,7 @@ router.post(
           },
         ],
 
-        product_image: cloudinaryResponse.secure_url,
+        product_image: cloudinaryResponse,
         owner: user._id,
       });
       await newOffer.save();
