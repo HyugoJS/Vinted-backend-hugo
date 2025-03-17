@@ -22,11 +22,15 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
     //console.log(passwordSalt);
     const hash = SHA256(passwordSalt).toString(encBase64);
     //console.log(hash);
-    const convertedPicture = convertToBase64(req.files.picture); // pour ajouter une photo
+    if (req.files) {
+      const convertedPicture = convertToBase64(req.files.picture); // pour ajouter une photo
 
-    const cloudinaryResponse = await cloudinary.uploader.upload(
-      convertedPicture
-    );
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        convertedPicture
+      );
+    } else {
+      cloudinaryResponse = null;
+    }
 
     const existEmail = await User.findOne({ email: req.body.email });
     if (existEmail) {
@@ -39,7 +43,7 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
       email: req.body.email,
       account: {
         username: req.body.username,
-        avatar: cloudinaryResponse.secure_url,
+        // avatar: cloudinaryResponse.secure_url,
       },
       newsletter: req.body.newsletter,
       token: token,
@@ -74,7 +78,7 @@ router.post("/user/login", async (req, res) => {
       return res.json("No account has been created whith this email");
     } else {
       if (hash2 === existEmail.hash) {
-        return res.json("connected");
+        return res.json(existEmail.token);
       } else {
         return res.json("The email / password combination is wrong");
       }
