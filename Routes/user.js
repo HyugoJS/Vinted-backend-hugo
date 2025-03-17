@@ -30,7 +30,7 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
 
     const existEmail = await User.findOne({ email: req.body.email });
     if (existEmail) {
-      return res.json("An account with this email already exists");
+      return res.json(token);
     } else if (req.body.username === "") {
       return res.json("You have to choose a username");
     }
@@ -67,6 +67,7 @@ router.post("/user/login", async (req, res) => {
     const hash2 = SHA256(req.body.password + existEmail.salt).toString(
       encBase64
     );
+
     console.log(hash2);
 
     if (!existEmail) {
