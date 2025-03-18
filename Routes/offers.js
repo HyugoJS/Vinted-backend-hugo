@@ -161,7 +161,7 @@ router.get("/offers", async (req, res) => {
     const findOffers = await Offer.find(filter)
       .sort(sortFilter)
       .skip((req.query.page - 1) * 3)
-      // .limit(3)
+      .limit(3)
       .populate("owner");
 
     const finalResponse = {
