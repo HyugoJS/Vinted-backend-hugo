@@ -36,7 +36,7 @@ app.post("/payment", async (req, res) => {
     // On crée une intention de paiement
     const paymentIntent = await stripe.paymentIntents.create({
       // Montant de la transaction
-      amount: req.body.amount, //req.body.amount
+      amount: req.body.amount,
       // Devise de la transaction
       currency: "usd",
       // Description du produit
